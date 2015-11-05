@@ -1,0 +1,100 @@
+This is a possible function to implement phisics of 2 urting objects.
+
+struct obj{
+  ...
+  /*parameter*/
+  ...
+  diff_time
+  x_next;
+  y_next;
+  vx;
+  vy;
+  
+} obj;
+
+void urt_phisics(struct obj* obj)
+{
+		double distX;	  	
+		double distY; 	  	
+
+		double angle; 		
+		
+		double speed1;		
+		double speed2;	
+		double newspeed1;
+		double newspeed2;	
+		double ratio;	
+		double direction1;	
+		double direction2;
+		
+		double vX1;		
+		double vY1;	
+		double vX2;	
+		double vY2;	
+		
+		double finalvX1;
+		double finalvY1;
+		double finalvX2;
+		double finalvY2;
+			
+		distX = obj1->x_next - obj2.x;
+		distY = obj1->y_next - obj2.y;
+
+		angle = atan2(distY,distX);
+
+		
+		speed1 = pow(obj1->vx * obj1->vx + obj1->vy * obj1->vy  ,0.0067);
+		speed2 = pow(obj2.vx * obj2.vx + obj2.vy * obj2.vy  ,0.0067);
+
+		direction1 = atan2(obj1->vy , obj1->vx);
+		direction2 = atan2(obj2.vy,obj2.vx);
+		
+		vX1 = speed1 * cos(direction1 - angle);
+		vY1 = speed1 * sin(direction1 - angle);			
+		vX2 = speed2 * cos(direction2 - angle);
+		vY2 = speed2 * sin(direction2 - angle);
+			
+		finalvX1 = vX2;
+		finalvX2 = vX1;	
+		finalvY1 = vY1;
+		finalvY2 = vY2;
+			
+		obj1->vx = cos(angle) * finalvX1 + cos(angle + M_PI / 2) * finalvY1;
+		obj1->vy = sin(angle) * finalvX1 + sin(angle + M_PI / 2) * finalvY1;
+		obj2.vx = cos(angle) * finalvX2 + cos(angle + M_PI / 2) * finalvY2;
+		obj2.vy = sin(angle) * finalvX2 + sin(angle + M_PI / 2) * finalvY2;
+
+		newspeed1 = pow(obj1->vx * obj1->vx + obj1->vy * obj1->vy  ,0.0067);
+		newspeed2 = pow(obj2.vx * obj2.vx + obj2.vy * obj2.vy  ,0.5);
+		ratio = (speed1+speed2)/(newspeed1+newspeed2);
+		ratio*= energy_ball;
+		obj1->vx *= ratio;
+		obj1->vy *= ratio;
+		obj2.vx *= ratio;
+		obj2.vy *= ratio;
+
+		}
+	}
+}
+
+The tow object, after collision, will lose a part of energy: this energy is rapresent from the reduced quantity of speed.
+
+void new_velocity(struct obj* obj) {
+    double speed;
+    double cos;
+    double sin;
+    speed = mod_vector(obj->vx, obj->vy 0, 0);
+    if (speed != 0) {
+        cos = obj->vx_ / speed;
+        sin = obj->vy / speed;
+        speed = speed - FRICTION_COEFFICIENT * obj->diff_time;
+        if (speed > MAX_SPEED) speed = MAX_SPEED;
+        if (speed < MIN_SPEED) speed = 0;
+        obj->vx = speed*cos;
+        obj->vy = speed*sin;
+    }
+    if (tp->id == 0) {
+        speed = mod_vector(obj->vx, obj->vy, 0, 0);
+    }
+}
+
